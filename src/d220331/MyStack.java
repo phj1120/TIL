@@ -2,7 +2,7 @@ package d220331;
 
 import java.util.ArrayList;
 
-public class Stack {
+public class MyStack {
     public int top = 0;
     public ArrayList data = new ArrayList();
 

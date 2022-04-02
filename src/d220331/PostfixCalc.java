@@ -8,7 +8,7 @@ public class PostfixCalc {
 //        String ex = sc.nextLine();
         String ex = "5 2 * 4 + 7 *";
         String exp[] = ex.split(" ");
-        Stack s = new Stack();
+        MyStack s = new MyStack();
         int in, x, y = 0;
         String ch;
 

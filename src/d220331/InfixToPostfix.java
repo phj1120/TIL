@@ -10,7 +10,7 @@ public class InfixToPostfix {
         String ex = "( 5 + 2 ) * 3";
         String exp[] = ex.split(" ");
 
-        Stack s = new Stack();
+        MyStack s = new MyStack();
         String result = "";
         int i = 0;
         String ch;
