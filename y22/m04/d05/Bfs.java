@@ -12,19 +12,15 @@ public class Bfs {
         Queue<Integer> q = new LinkedList();
 
         q.offer(1);
+        isCheck.set(1, true);
         while (!q.isEmpty()) {
             int p = q.poll();
-            System.out.println("g.get(p) = " + g.get(p));
+            result += p + " ";
             for (int i = 0; i < g.get(p).size(); i++) {
-
-                if (!isCheck.get(g.get(p).get(i))) {
-                    System.out.println("i : " +i);
-                    System.out.println("g.get(p).get(i) = " + g.get(p).get(i));
-                    int y = g.get(p).get(i);
+                int y = g.get(p).get(i);
+                if (!isCheck.get(y)) {
+                    isCheck.set(y, true);
                     q.offer(y);
-                    System.out.println(q);
-                    isCheck.set(i, true);
-                    result += y + " ";
                 }
             }
         }

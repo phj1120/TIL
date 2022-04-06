@@ -83,3 +83,23 @@ static public int dfs(int p) {
 
 간선의 비용이 동일한 상황에서 최단 거리를 구하는데 이용.
 
+
+    public static void main(String[] args) {
+        init();
+        Queue<Integer> q = new LinkedList();
+        q.offer(1);
+        isCheck.set(1, true);
+        while (!q.isEmpty()) {
+            int p = q.poll();
+            result += p + " ";
+
+            for (int i = 0; i < g.get(p).size(); i++) {
+                int y = g.get(p).get(i);
+                if (!isCheck.get(y)) {
+                    q.offer(y);
+                    isCheck.set(y, true);
+                }
+            }
+        }
+        System.out.println(result);
+    }
