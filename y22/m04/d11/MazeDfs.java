@@ -13,10 +13,15 @@ public class MazeDfs {
             return;
         }
         if (x == m - 1 && y == n - 1) {
-            minDistance = distance;
+            minDistance = Math.min(distance, minDistance);
             distances.add(distance);
             return;
         }
+
+        if (distance >= minDistance) {
+            return;
+        }
+
         if (maze[x][y] == 1) {
             maze[x][y] = 0;
             dfs(maze, distance + 1, x, y - 1);
@@ -42,7 +47,7 @@ public class MazeDfs {
             }
         }
         dfs(maze, 1 ,0 ,0);
-        System.out.println(minDistance);
+        System.out.print(minDistance);
     }
 }
 
