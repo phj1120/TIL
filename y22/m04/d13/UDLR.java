@@ -5,14 +5,17 @@ import java.util.Scanner;
 public class UDLR {
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        sc.nextLine();
+//        Scanner sc = new Scanner(System.in);
+//        int n = sc.nextInt();
+//        sc.nextLine();
+//
+//        String strWay = sc.nextLine();
+        int n = 5;
+        String strWay = "R R R U D D";
 
-        String strWay = sc.nextLine();
         String[] strList = strWay.split(" ");
 
-        String[] way = {"U", "D", "L", "R"};
+        String[] way = {"R", "L", "U", "D"};
         String[][] arr = new String[n][n];
 
         int x = 1;
@@ -24,12 +27,17 @@ public class UDLR {
         for (String str : strList) {
             for (int i = 0; i < 4; i++) {
                 if (way[i].equals(str)) {
-                    x = x + dx[i];
-                    y = y + dy[i];
-                    System.out.printf("%d %d\n", x, y);
+                    int nx = x + dx[i];
+                    int ny = y + dy[i];
+                    if (!(nx < 1 || nx > n || ny < 1 || ny > n)) {
+                        x = nx;
+                        y = ny;
+                        break;
+                    }
                 }
             }
         }
         System.out.printf("%d %d", x, y);
     }
 }
+
