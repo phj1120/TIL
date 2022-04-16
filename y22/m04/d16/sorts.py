@@ -1,4 +1,6 @@
 arr = [5, 7, 9, 0, 3, 1, 6, 2, 4, 8]
+arr = [5, 6, 9, 0, 3, 1, 6, 2, 4, 8]
+arr = list("12324124540932580903350592502358032")
 
 
 def quick_sort(array):
@@ -6,7 +8,6 @@ def quick_sort(array):
         pivot = 0
         over = -1
         under = -1
-        print("\narray : ", array)
 
         for i in range(1, len(array), 1):
             if array[pivot] < array[i]:
@@ -18,12 +19,12 @@ def quick_sort(array):
                 under = i
                 break
 
-        if over == under:
-            print("hereqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
+        if over == -1:
+            array[under], array[pivot] = array[pivot], array[under]
             break
 
-        if under == -1 or over == -1:
-            print("over", over, "under", under)
+        if under == -1:
+            under = 1
             break
 
         if over < under:
@@ -34,13 +35,9 @@ def quick_sort(array):
             array[under], array[pivot] = array[pivot], array[under]
             break
 
-
-
     if len(array) > 2:
         left = quick_sort(array[:under])
-        print("left", left)
         right = quick_sort(array[under:])
-        print("right", right)
         array = left + right
 
     return array
