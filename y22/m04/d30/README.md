@@ -8,3 +8,12 @@ input = sys.stdin.readline
 
 my_min = min 이런 느낌
 
+# 플로이드 워셜 알고리즘
+
+다이나믹 프로그래밍 : D(ab) = min(D(ab), D(ak) + D(kb))
+
+a 에서 b 로 가는 최단 거리보다 a에서 k를 거쳐 b로 가는 거리가 더 짧은지
+
+각 단계마다 모두 확인
+
+3 중 for 문 이용
