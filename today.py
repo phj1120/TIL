@@ -28,6 +28,9 @@ def create_readme(directory):
         print("Error: Failed to create the README file.")
 
 
+# Todo 월 말 회고 README 파일 생성
+
+
 if __name__ == "__main__":
     now = datetime.now()
     year = 'y%d' % (now.year - 2000)
