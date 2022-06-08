@@ -14,7 +14,7 @@
 
 연산의 타입을 long, double 으로 맞춰주고, 연산 순서를 나누기를 마지막에 했다.
 
-* 내 풀의
+* 내 풀이
 
 ```
 class Solution {
@@ -54,7 +54,7 @@ long wLong = w, hLong = h;
 }
 ```
 
-* 더 좋은 풀의
+* 더 좋은 풀이
 
 ```
 class Solution {
