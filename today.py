@@ -16,7 +16,8 @@ def create_directory(directory):
 
 # 오늘의 작업 폴더에 README 파일 생성
 def create_readme(directory):
-    readme_path = f'{directory}\README.md'
+    readme_path = os.path.join(directory, "README.md")
+
     try:
         if not os.path.exists(readme_path):
             f = open(readme_path, "w")
@@ -36,7 +37,13 @@ if __name__ == "__main__":
     year = 'y%d' % (now.year - 2000)
     month = 'm%02d' % now.month
     day = 'd%02d' % now.day
-    path = os.path.join(os.getcwd(), year, month, day)
+
+    if os.name == 'posix':  # mac
+        dir_path = '/Users/phj/Dev/git/TIL'
+    else:  # windows
+        dir_path = os.getcwd()
+
+    path = os.path.join(dir_path, year, month, day)
 
     create_directory(path)
     create_readme(path)
