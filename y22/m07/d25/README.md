@@ -71,3 +71,26 @@ def solution(maps):
 
     return -1
 ```
+
+```
+def solution(maps):
+    n, m = len(maps[-1]), len(maps)
+    queue = [(0, 0)]
+    delta = ((-1, 0), (1, 0), (0, 1), (0, -1))
+
+    while queue:
+        x, y = queue.pop(0)
+
+        for dx, dy in delta:
+            nx = x + dx
+            ny = y + dy
+            if 0 <= nx < n and 0 <= ny < m:
+                if maps[ny][nx] == 1:
+                    maps[ny][nx] = maps[y][x] + 1
+                    queue.append((nx, ny))
+
+        if maps[-1][-1] != 1:
+            return maps[-1][-1]
+
+    return -1
+```
