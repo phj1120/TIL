@@ -16,29 +16,28 @@ def solution(game_board, table):
         puzzle_list = puzzle_to_puzzle_list(puzzle)
         puzzle_lists.append(puzzle_list)
 
-    idx = 0
-    while puzzle_lists:
-        if len(puzzle_lists) <= idx:
-            break
+    for puzzle_blank in puzzle_blanks:
+        find_state = False
 
-        for puzzle_blank in puzzle_blanks:
-            puzzle_blank_list = puzzle_to_puzzle_list(puzzle_blank)
-            puzzle_blank_lists = puzzle_rotation_for_angle(puzzle_blank_list)
+        puzzle_blank_list = puzzle_to_puzzle_list(puzzle_blank)
+        puzzle_blank_lists = puzzle_rotation_for_angle(puzzle_blank_list)
+        idx = 0
+        while puzzle_lists:
+            if len(puzzle_lists) <= idx:
+                break
+            if find_state:
+                break
+            block = puzzle_lists[idx]
 
-            find_state = False
-            for block in puzzle_lists:
+            for blank in puzzle_blank_lists:
                 if find_state:
                     break
-                for blank in puzzle_blank_lists:
-                    if find_state:
-                        break
-                    if blank == block:
-                        count += count_cell(puzzle_lists[idx])
-                        puzzle_lists.pop(idx)
-                        find_state = True
-                        break
-        idx += 1
-
+                if blank == block:
+                    count += count_cell(puzzle_lists[idx])
+                    puzzle_lists.pop(idx)
+                    idx -= 1
+                    find_state = True
+            idx += 1
     return count
 
 
