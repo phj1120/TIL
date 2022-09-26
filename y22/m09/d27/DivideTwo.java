@@ -23,8 +23,16 @@ class Solution {
             while (!queue.isEmpty()) {
                 int now = queue.poll();
                 for (int next : map.getOrDefault(now, new ArrayList<>())) {
-                    queue.add(next);
-                    isVisited[next] = true;
+                    if (!isVisited[next]) {
+                        queue.add(next);
+                        isVisited[next] = true;
+                    }
+                }
+                for (int key : map.keySet()) {
+                    if (!isVisited[key] && map.get(key).contains(now)) {
+                        queue.add(key);
+                        isVisited[key] = true;
+                    }
                 }
             }
             int cnt = 0;
