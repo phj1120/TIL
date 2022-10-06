@@ -1,8 +1,6 @@
 package y22.m10.d06;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 public class Q14502 {
@@ -28,23 +26,24 @@ public class Q14502 {
         boolean[][] isVisitedForBlankFind = new boolean[n][m];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                if (maps[i][j] == 0) {
+                if (maps[i][j] == 0 && !isVisitedForBlankFind[i][j]) {
                     Queue<Node> blankFindQueue = new LinkedList();
-                    blankFindQueue.offer(new Node(i, j));
+                    Node node = new Node(i, j);
+                    blankFindQueue.offer(node);
+                    blankList.add(node);
+                    isVisitedForBlankFind[i][j] = true;
                     while (!blankFindQueue.isEmpty()) {
                         Node now = blankFindQueue.poll();
                         int x = now.x;
                         int y = now.y;
                         for (int k = 0; k < dx.length; k++) {
-                            for (int l = 0; l < dy.length; l++) {
-                                int nx = x + dx[k];
-                                int ny = y + dy[l];
-                                if (nx >= 0 && nx < m && ny >= 0 && ny < n) {
-                                    if (!isVisitedForBlankFind[ny][nx] && maps[ny][nx] == 0) {
-                                        isVisitedForBlankFind[ny][nx] = true;
-                                        blankFindQueue.offer(new Node(ny, nx));
-                                        blankList.add(new Node(ny, nx));
-                                    }
+                            int nx = x + dx[k];
+                            int ny = y + dy[k];
+                            if (nx >= 0 && nx < m && ny >= 0 && ny < n) {
+                                if (!isVisitedForBlankFind[ny][nx] && maps[ny][nx] == 0) {
+                                    isVisitedForBlankFind[ny][nx] = true;
+                                    blankFindQueue.offer(new Node(ny, nx));
+                                    blankList.add(new Node(ny, nx));
                                 }
                             }
                         }
@@ -64,45 +63,60 @@ public class Q14502 {
             for (int i = 0; i < n; i++) {
                 newMap[i] = maps[i].clone();
             }
-            System.out.println(Arrays.toString(blockWall));
             for (int i = 0; i < blockWall.length; i++) {
                 Node changeNode = blankList.get(blockWall[i]);
-                System.out.println(changeNode);
                 newMap[changeNode.y][changeNode.x] = 1;
             }
 
             // 4. 바이러스 확산
-//            boolean[][] isVisitedForSpreadingVirus = new boolean[n][m];
-//            for (int i = 0; i < n; i++) {
-//                for (int j = 0; j < m; j++) {
-//                    if (maps[i][j] == 0) {
-//                        Queue<Node> blankFindQueue = new LinkedList();
-//                        blankFindQueue.offer(new Node(i, j));
-//                        while (!blankFindQueue.isEmpty()) {
-//                            Node now = blankFindQueue.poll();
-//                            int x = now.x;
-//                            int y = now.y;
-//                            for (int k = 0; k < dx.length; k++) {
-//                                for (int l = 0; l < dy.length; l++) {
-//                                    int nx = x + dx[k];
-//                                    int ny = y + dy[l];
-//                                    if (nx >= 0 && nx < m && ny >= 0 && ny < n) {
-//                                        if (!isVisitedForSpreadingVirus[ny][nx] && maps[ny][nx] == 0) {
-//                                            isVisitedForSpreadingVirus[ny][nx] = true;
-//                                            blankFindQueue.offer(new Node(ny, nx));
-//                                            blankList.add(new Node(ny, nx));
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-            System.out.println(Arrays.deepToString(newMap));
-            // 5. 안전한 칸 수 확인
+            boolean[][] isVisitedForSpreadingVirus = new boolean[n][m];
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    if (newMap[i][j] == 2 && !isVisitedForSpreadingVirus[i][j]) {
+                        Queue<Node> spreadingVirusQueue = new LinkedList<>();
+                        spreadingVirusQueue.offer(new Node(i, j));
+                        isVisitedForSpreadingVirus[i][j] = true;
+                        while (!spreadingVirusQueue.isEmpty()) {
+                            Node now = spreadingVirusQueue.poll();
+                            int x = now.x;
+                            int y = now.y;
+                            for (int k = 0; k < dx.length; k++) {
+                                int nx = x + dx[k];
+                                int ny = y + dy[k];
+                                if (nx >= 0 && nx < m && ny >= 0 && ny < n) {
+                                    if (!isVisitedForSpreadingVirus[ny][nx] && newMap[ny][nx] == 0) {
+                                        isVisitedForSpreadingVirus[ny][nx] = true;
+                                        newMap[ny][nx] = 2;
+                                        spreadingVirusQueue.offer(new Node(ny, nx));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
+            printMap(newMap);
+
+            // 5. 안전한 칸 수 확인
+            int safeNodeCount = 0;
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    if (newMap[i][j] == 0) {
+                        safeNodeCount++;
+                    }
+                }
+            }
+            maxSafe = Math.max(safeNodeCount, maxSafe);
         }
+        System.out.println(maxSafe);
+    }
+
+    private static void printMap(int[][] newMap) {
+        for (int[] ints : newMap) {
+            System.out.println(Arrays.toString(ints));
+        }
+        System.out.println();
     }
 
     static class Node {
@@ -128,7 +142,7 @@ public class Q14502 {
     // 조합 코드 참고
     private static void combination(int[] comArr, int n, int r, int index, int target) {
         if (r == 0) {
-            blockWallCombinations.add(comArr);
+            blockWallCombinations.add(comArr.clone());
             return;
         }
         if (target == n) return;
