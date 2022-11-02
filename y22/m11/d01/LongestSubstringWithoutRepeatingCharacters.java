@@ -6,7 +6,7 @@ import java.util.Set;
 public class LongestSubstringWithoutRepeatingCharacters {
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int length = solution.lengthOfLongestSubstring("abcabcbb");
+        int length = solution.lengthOfLongestSubstring("aab");
         System.out.println(length);
     }
 }
@@ -17,43 +17,31 @@ class Solution {
         int left = 0;
         int right = 0;
         int maxLength = 0;
-        for (int i = 0; i < s.length(); i++) {
+        for (int i = 0; i <= s.length(); i++) {
             if (isRepeat(s, left, right)) {
+                right = i;
                 left = i;
             } else {
-                right++;
                 maxLength = Math.max(maxLength, right - left + 1);
+                right = Math.min(right + 1, s.length() - 1);
             }
         }
-
+        // 마지막의 경우 고려하는 코드 추가
         return maxLength;
     }
 
     private boolean isRepeat(String s, int left, int right) {
         Set set = new HashSet();
-        for (int i = left; i < right; i++) {
+        if (left == right) {
+            return false;
+        }
+
+        for (int i = left; i <= right; i++) {
             char now = s.charAt(i);
             if (set.contains(now)) {
                 return true;
             }
             set.add(now);
-        }
-        return false;
-    }
-
-    private boolean isRepeat2(String s, int left, int right) {
-        int length = right - left + 1;
-        for (int i = 1; i <= length / 2; i++) {
-            for (int j = 0; j < i; j++) {
-                if (s.charAt(right - j) != s.charAt(right - j - i)) {
-                    continue;
-                }
-                if (j == i - 1) {
-                    return true;
-                }
-            }
-
-
         }
         return false;
     }
