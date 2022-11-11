@@ -3,7 +3,7 @@ package y22.m11.d11;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class HikingCourse {
+public class HikingCourseDfs {
 
     public static void main(String[] args) {
         int n = 6;
