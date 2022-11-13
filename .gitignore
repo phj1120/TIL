@@ -3,5 +3,6 @@ env
 TIL.iml
 out
 venv
+lib
 
 *.Ds_Store

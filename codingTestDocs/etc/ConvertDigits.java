@@ -1,4 +1,4 @@
-package codingTestDocs.etc;
+package etc;
 
 import java.util.ArrayList;
 import java.util.List;

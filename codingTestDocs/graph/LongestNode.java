@@ -1,4 +1,4 @@
-package codingTestDocs.graph;
+package graph;
 
 import java.util.*;
 

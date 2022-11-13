@@ -1,4 +1,4 @@
-package codingTestDocs.bfs;
+package bfs;
 
 class Solution1 {
 
