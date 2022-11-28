@@ -6,6 +6,3 @@
 
 [베스트 앨범](https://school.programmers.co.kr/learn/courses/30/lessons/42579)
 
-늦게 풀이 시작해서 풀이 중!
-
-오늘 안에 풀고 잔다.

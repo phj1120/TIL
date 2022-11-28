@@ -47,16 +47,17 @@ public class PrevSolution {
 
         return genresAlbum;
     }
-}
 
-class Music {
-    int id;
-    String genre;
-    int playTime;
+    static class Music {
+        int id;
+        String genre;
+        int playTime;
 
-    public Music(int id, String genre, int playTime) {
-        this.id = id;
-        this.genre = genre;
-        this.playTime = playTime;
+        public Music(int id, String genre, int playTime) {
+            this.id = id;
+            this.genre = genre;
+            this.playTime = playTime;
+        }
     }
 }
+
