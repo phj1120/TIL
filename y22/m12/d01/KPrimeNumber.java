@@ -1,7 +1,6 @@
 package m12.d01;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class KPrimeNumber {
@@ -14,7 +13,6 @@ public class KPrimeNumber {
     }
 
 }
-
 class Solution {
     public int solution(int n, int k) {
         // 진법 변환
@@ -36,24 +34,25 @@ class Solution {
         // 소수 인지 판단
         int count = 0;
         for (long data : datas) {
-            if(data <= 1){
-                continue;
-            }
-            if (data == 2) {
+            if (isPrimeNumber(data)) {
                 count++;
-                continue;
-            }
-            long length = (long)Math.sqrt(data)-1;
-            for (long i = 2; i <= length; i++) {
-                if (data % i == 0) {
-                    break;
-                }
-                if (i == length) {
-                    count++;
-                }
             }
         }
 
         return count;
+    }
+
+    private boolean isPrimeNumber(long data) {
+        if (data <= 1)
+            return false;
+        if (data == 2)
+            return true;
+        long length = (long) Math.sqrt(data) + 1;
+        for (long i = 2; i < length; i++) {
+            if (data % i == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }
