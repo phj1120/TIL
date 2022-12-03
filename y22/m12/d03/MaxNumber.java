@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 public class MaxNumber {
     public static void main(String[] args) {
         Solution solution = new Solution();
+//        int[] numbers = {0, 0, 0};
         int[] numbers = {6, 10, 2};
         String correctAnswer = "6210";
         String answer = solution.solution(numbers);
@@ -17,17 +18,23 @@ public class MaxNumber {
 
     static class Solution {
         public String solution(int[] numbers) {
-            List<Integer> list = Arrays.stream(numbers).boxed().collect(Collectors.toList());
-            list.sort((i1, i2) -> {
-                String s1 = i1.toString();
-                String s2 = i2.toString();
+            List<Integer> list = Arrays.stream(numbers).boxed()
+                    .sorted((i1, i2) -> {
+                        String concat1 = String.valueOf(i1) + String.valueOf(i2);
+                        String concat2 = String.valueOf(i2) + String.valueOf(i1);
 
-                return s2.compareTo(s1);
-            });
+                        return concat2.compareTo(concat1);
+                    })
+                    .collect(Collectors.toList());
 
             String answer = "";
             for (Integer integer : list) {
                 answer += integer;
+            }
+
+            String checkZero = answer.replaceAll("0", "");
+            if ("".equals(checkZero)) {
+                return "0";
             }
 
             return answer;
