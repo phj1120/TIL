@@ -7,10 +7,15 @@ public class TreasureMap {
     public static void main(String[] args) {
         Solution solution = new Solution();
 
-        int n = 4;
+//        int n = 4;
+//        int m = 4;
+//        int[][] hole = {{2, 3}, {3, 3}};
+//        int correctAnswer = 5;
+
+        int n = 5;
         int m = 4;
-        int[][] hole = {{2, 3}, {3, 3}};
-        int correctAnswer = 5;
+        int[][] hole = {{1, 4}, {2, 1}, {2, 2}, {2, 3}, {2, 4}, {3, 3}, {4, 1}, {4, 3}, {5, 3}};
+        int correctAnswer = -1;
 
         int answer = solution.solution(n, m, hole);
         System.out.println(answer == correctAnswer);
@@ -25,68 +30,66 @@ class Solution {
     int[] d2m = {0, 0, 2, -2};
 
     public int solution(int n, int m, int[][] hole) {
-//        // n : 가로 / m : 세로
-//        boolean[][] isVisited = new boolean[m][n];
-//        boolean[][] map = new boolean[m][n];
-//
-//        for (int[] data : hole) {
-//            map[data[1] - 1][data[0] - 1] = true;
-//        }
-//        int minDistance = Integer.MAX_VALUE;
-//        Queue<Node> queue = new LinkedList<>();
-//        queue.add(new Node(0, 0, 0, 0));
-//        while (!queue.isEmpty()) {
-//            if (nowN == this.n - 1 && nowM == this.m - 1) {
-//                minDistance = Math.min(minDistance, map[nowM][nowN]);
-//                return;
-//            }
-//
-//            if (jumpCount < JUMP_MAX_COUNT) {
-//                // 2단 점프
-//                for (int i = 0; i < d2m.length; i++) {
-//                    int nextN = nowN + d2n[i];
-//                    int nextM = nowM + d2m[i];
-//                    if (nextM < this.m && nextM >= 0 && nextN < this.n && nextN >= 0 && map[nextM][nextN] == Integer.MAX_VALUE) {
-//                        int beforeValue = map[nextM][nextN];
-//                        if (beforeValue != Integer.MAX_VALUE && beforeValue >= nextM * nextN) continue;
-//                        map[nextM][nextN] = map[nowM][nowN] + 1;
-//                        dfs(nextN, nextM, ++jumpCount);
-//                        jumpCount--;
-//                        map[nextM][nextN] = beforeValue;
-//                    }
-//                }
-//            }
-//            // 1단 점프
-//            for (int i = 0; i < dm.length; i++) {
-//                int nextN = nowN + dn[i];
-//                int nextM = nowM + dm[i];
-//                if (nextM < this.m && nextM >= 0 && nextN < this.n && nextN >= 0 && map[nextM][nextN] == Integer.MAX_VALUE) {
-//                    int beforeValue = map[nextM][nextN];
-//                    if (beforeValue != Integer.MAX_VALUE && beforeValue >= nextM * nextN) continue;
-//                    map[nextM][nextN] = map[nowM][nowN] + 1;
-//                    dfs(nextN, nextM, jumpCount);
-//                    map[nextM][nextN] = beforeValue;
-//                }
-//            }
-//        }
-//
-//
-//        if (minDistance == Integer.MAX_VALUE) {
-//            return -1;
-//        }
-//        return minDistance;
-        return 0;
+        // n : 가로 / m : 세로
+        boolean[][][] isVisited = new boolean[m][n][2];
+        boolean[][] map = new boolean[m][n];
+
+        for (int[] data : hole) {
+            map[data[1] - 1][data[0] - 1] = true;
+        }
+
+        isVisited[0][0][1] = true;
+        int minDistance = Integer.MAX_VALUE;
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(new Node(0, 0, 0, 1));
+        while (!queue.isEmpty()) {
+            Node now = queue.poll();
+            int nowM = now.m;
+            int nowN = now.n;
+            if (nowM == m - 1 && nowN == n - 1) {
+                minDistance = Math.min(minDistance, now.time);
+            }
+            // 1단 점프
+            for (int i = 0; i < dm.length; i++) {
+                int nextN = nowN + dn[i];
+                int nextM = nowM + dm[i];
+                if (nextM < m && nextM >= 0 && nextN < n && nextN >= 0
+                        && !isVisited[nextM][nextN][now.jumpCount] && !map[nextM][nextN]) {
+                    isVisited[nextM][nextN][now.jumpCount] = true;
+                    queue.offer(new Node(nextN, nextM, now.time + 1, now.jumpCount));
+                }
+            }
+
+            // 2단 점프
+            if (now.jumpCount > 0) {
+                for (int i = 0; i < d2m.length; i++) {
+                    int nextN = nowN + d2n[i];
+                    int nextM = nowM + d2m[i];
+                    if (nextM < m && nextM >= 0 && nextN < n && nextN >= 0 &&
+                            !isVisited[nextM][nextN][now.jumpCount - 1] && !map[nextM][nextN]) {
+                        isVisited[nextM][nextN][now.jumpCount - 1] = true;
+                        queue.offer(new Node(nextN, nextM, now.time + 1, now.jumpCount - 1));
+                    }
+                }
+            }
+        }
+
+
+        if (minDistance == Integer.MAX_VALUE) {
+            return -1;
+        }
+        return minDistance;
     }
 
     static class Node {
-        int x;
-        int y;
+        int n;
+        int m;
         int time;
         int jumpCount;
 
-        public Node(int x, int y, int time, int jumpCount) {
-            this.x = x;
-            this.y = y;
+        public Node(int n, int m, int time, int jumpCount) {
+            this.n = n;
+            this.m = m;
             this.time = time;
             this.jumpCount = jumpCount;
         }
