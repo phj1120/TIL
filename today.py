@@ -39,7 +39,7 @@ if __name__ == "__main__":
     day = 'd%02d' % now.day
 
     if os.name == 'posix':  # mac
-        dir_path = '/Users/phj/Dev/git/TIL'
+        dir_path = '/Users/parkh/Dev/git/TIL'
     else:  # windows
         dir_path = os.getcwd()
 
