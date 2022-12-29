@@ -17,7 +17,7 @@ class Solution {
         int right = nums.length - 1;
 
         while (left <= right) {
-            if (nums[left] == nums[right]) {
+            if (nums[left] <= nums[right]) {
                 return nums[left];
             }
 
