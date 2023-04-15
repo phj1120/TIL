@@ -1,11 +1,4 @@
-# TIL
-노션과 깃허브 둘 중 하나에 정리
-
-[하루](https://parkhj.notion.site/4e5b1812f2004fdd8248b63f67960185)
-
-[TIL](https://parkhj.notion.site/2022-ca451e3d083f4ad5a1833ccc91e9386a)
-
-# 하루 한 시간 알고리즘
+## TIL
 
 토이 프로젝트를 하며 내가 짠 코드를 보며 구현하기 급급한 코드라는 느낌이 들어 아쉬웠음
 
@@ -19,25 +12,12 @@
 
 시작 : 2022.03.11.
 
-## 개발 환경
-
-* IDE
-
-  [Replit](https://replit.com/@hyeonj1120/ikote#main.py)
-
-
-* 언어
-
-  주 : Python
-
-  부 : Java, C
-
 ## 기타
 
 문제 출처
 
-백준, https://www.acmicpc.net/
+백준: https://www.acmicpc.net/
 
-이것이 취업을 위한 코딩 테스트다 with Python, https://github.com/ndb796/python-for-coding-test
+이것이 취업을 위한 코딩 테스트다 with Python: https://github.com/ndb796/python-for-coding-test
 
-프로그래머스 코딩 테스트 연습, https://programmers.co.kr/learn/challenges
+프로그래머스 코딩 테스트 연습: https://programmers.co.kr/learn/challenges
